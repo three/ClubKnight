@@ -1,0 +1,22 @@
+{
+  "name": "club-ru",
+  "version": "0.0.1",
+  "description": "Club Pengiun for Rutgers Students",
+  "author": "Eric Roberts <eric@threedot14.com>",
+  "contributors": [],
+  "main": "lib/server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/three/ClubRU"
+  },
+  "bugs": {
+    "url": "https://github.com/three/ClubRU"
+  },
+  "private": true,
+  "dependencies": {
+    "commander": "^2.9.0",
+    "express": "^4.14.1",
+    "socketio": "^1.0.0",
+    "winston": "^2.3.1"
+  }
+}

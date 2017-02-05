@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Club RU</title>
+
+        <script>try{eval("()=>{}")}catch(e){alert("WARNING: Possibly unsupported browser!")}</script>
+
+        <link rel="stylesheet" href="play.css" />
+        <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet">
+
+        <!-- TODO: Before we deploy anything, change these to the minified version -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.3.4/pixi.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+
+        <script type="text/javascript" src="/play.js"></script>
+    </head>
+
+    <body>
+        <h1>Club RU</h1>
+        <div id="game">
+            <div id="pixi-container">
+            </div>
+            <div id="game-overlay">
+                <input id="chat" type="text" />
+            </div>
+        </div>
+    </body>
+</head>
