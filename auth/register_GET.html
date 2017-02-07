@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register for Club RU</title>
+
+        <script type="text/javascript" src="/register.js"></script>
+    </head>
+
+    <body>
+        <h1>Register for Club RU</h1>
+
+        <h2>Before you register</h2>
+
+        <h3>Who can register?</h3>
+        <p>Students of Rutgers University, 18 years of age or older.</p>
+
+        <h3>What do I need to register</h3>
+        <p>To register you need your Rutgers netId. An email will be sent to
+        <em>netid</em>@scarletmail.rutgers.edu with a confirmation code. Or
+        that's what's supposed to happend once we're done. In the game you will
+        be identified by your netId.</p>
+
+        <h3>Am I anonymous?</h3>
+        <p>Nobody is anonymous when using Club RU. Each student is identified by
+        their netID.</p>
+
+        <h3>Can I be banned?</h3>
+        <p>Short of legal concerns (you must obey the law), we do not ban people.</p>
+
+        <h3>Do you value your user's privacy?</h3>
+        <p>The ClubRU team recognizes the importance of keeping users informed
+        what data we collect and how we use it. For this reason, we have included
+        many questions on this page with the purpose of answering those questions.
+        This does NOT necessarily mean we are conservative or careful about the
+        data we do collect, so please read the ENTIRE page and email us if you
+        have additional questions (eric AT threedot14.com).
+
+        <h3>What do you log?</h3>
+        <p>The information we log from the server changes depending on how much we have
+        the capacity to log and what we feel we must log to improve ClubRU. We
+        always log all chat interactions. If you are a user of ClubRU it is
+        safest to assume all your online interactions will be logged.</p>
+
+        <h3>How long do you store logs?</h3>
+        <p>We currently do not have routines to regularly delete log files. Log
+        files may be deleted when space becomes low. If you are a user of
+        ClubRU it is safest to assume log files will be stored forever.</p>
+
+        <h3>Do you sell any data you collect?</h3>
+        <p>ClubRU will NEVER sell any data we collect.</p>
+
+        <h3>Do you cooperate with police?</h3>
+        <p>We do not have an official policy for cooperating with police. We
+        will always cooperate with the police if the law requires we do so.
+        This may include providing access logs, chat logs, or any other data
+        collected and stored by our server. Additionally, there have been cases
+        where police have seized control of servers, giving them the ability
+        to collect or ask for additional information. If you are a user of
+        ClubRU it is safest to assume we will fully cooperate with the police.
+        </p>
+
+        <h3>Is ClubRU open source?</h3>
+        <p>The source for ClubRU is publicly available on our
+        <a href="https://github.com/three/ClubRU/">Github Repo</a>, however we
+        have not yet chosen a proper license to be considered "open source".</p>
+
+        <h3>Are you accepting contributions?</h3>
+        <p>Yes! Please follow the contributing guidelines on our Github repo.</p>
+
+        <h3>How are passwords stored?</h3>
+        <p>Your passwords are salted and hashed using libsodium's
+        <a href="https://download.libsodium.org/doc/password_hashing/the_argon2i_function.html">
+            Argon2 implementation</a>.</p>
+        
+        <h3>How do I change my password?</h3>
+        <p>Come back to this page and enter your netId and new password.
+        Once you confirm the password change via email, we will update
+        our database to reflect it.</p>
+
+        <h3>Are you affiliated with Rutgers?</h3>
+        <p>Club RU is made by a team of Rutgers students but is NOT
+        affiliated in any way with the University. We run independently
+        of Rutgers University.</p>
+
+        <h3>What else do I need to know?</h3>
+        <p>Don't do anything illegal. Also (TODO), probably a bunch more
+        legal stuff we should probably add.</p>
+
+        <h2>Registration</h2>
+
+        <form action="register.html" method="POST">
+            <label>
+                <input type="checkbox" name="agree" />
+                I have completely read and agree to ALL of the above terms
+            </label><br />
+            <label>
+                NetId
+                <input type="text" name="netid" />
+            </label><br />
+            <label>
+                Password
+                <input type="password" name="pass" />
+            </label><br />
+            <label>
+                Reenter Password (optional)
+                <input type="passwprd" />
+            </label><br />
+            
+            <button type="submit">Register</button><br />
+            <em>Your account will NOT be valid until you confirm via your
+                rutgers email address!<em>
+        </form>
+    </body>
+</html>
