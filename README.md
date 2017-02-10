@@ -32,13 +32,30 @@ and error handling*, *Loops and iteration*, *Functions* and *Details of the
 object model* should easily be enough to get you started writing Javascript.
 Javascript is an important language and you will not regret learning it.
 
-## Dependencies
+## Testing
 
-Club RU requires NodeJS v7.5.0 or above (or compatible alternative, such as
-iojs) with npm to handle libraries. Use the below commands to run.
+ClubRU requires NodeJS v7.5.0 or above (or compatible alternative, such as
+iojs) with npm to handle libraries. Run the following to download/install
+these dependencies.
 
     $ npm install
+
+ClubRU is run through the `clubru.js` file. By default, it will listen on
+port 8080, and the server will be available at `http://localhost:8080/`.
+
     $ node clubru.js
+
+Unfortunately, it is seemingly impossible to install a secure argon2 library
+for node on Windows. Therefore the `argon1` dependency is marked as optional
+and ClubRU can be installed without it.
+
+    $ npm install --no-optional
+
+By default, ClubRU will still attempt to run as though the `argon2` library
+was installed. To switch to node's built-in SHA256 support, run with the
+`-i` flag.
+
+    $ node clubru.js -i
 
 # License and Ownership
 
