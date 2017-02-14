@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Validate Your Account</title>
+
+        <script type="text/javascript" src="/validate.js"></script>
+    </head>
+
+    <body>
+        <h1>Validate Your Account</h1>
+
+        <p>This page is for the following people:</p>
+        <ul>
+            <li>People trying to activate their account.</li>
+            <li>People trying to change their password.</li>
+        </ul>
+        <p>In either case, please enter your validation token and
+        desired password below.</p>
+
+        <form action="validate.html" method="POST">
+            <label>
+                Validation Token:
+                <input type="text" name="token" />
+            </label><br/>
+            <label>
+                Desired Password:
+                <input type="text" name="pass" />
+            </label><br/>
+            <button type="submit">Validate!</button>
+            <p><em>Passwords must be 1 or more ASCII (non-control)
+            characters.</em> Password sized may not exceed 1000
+            characters. Passwords are hashed with the Argon2 algorithm
+            before storage. By reaching this page you have already
+            agreed to the information listed on the registration page.</p>
+        </form>
+    </body>
+</html>
+
