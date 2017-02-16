@@ -14,8 +14,10 @@ repositories or work off branches in the main repository. Open an issue if you
 need write access to the repo.
 
 If you are in the "Club Rutgers" group in COGS, start by adding your name to
-`package.json` in contributors. This may involve referencing the
-[official npm documentation](https://docs.npmjs.com/files/package.json).
+`package.json` in contributors. Just follow this format
+`"Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)"`
+You can reference the
+[official npm documentation](https://docs.npmjs.com/files/package.json) if you run into any issues.
 Second, make sure you understand the basic technologies we will be using for
 this project. Knowledge of HTML and CSS or other web development knowledge will
 be helpful, but is not required. Knowledge of specific libraries or frameworks
