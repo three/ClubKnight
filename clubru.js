@@ -11,6 +11,8 @@ var commander = require("commander");
 var fs = require("fs");
 var path = require("path");
 var servermodule;
+
+var configdefault = require("./config.default.js");
 var config;
 
 var argstatic = true,
@@ -18,10 +20,14 @@ var argstatic = true,
     argforce = false,
     arginsecure = false,
     configfile = path.join(__dirname, "config.js"),
-    createconfig = true,
+    configrequired = false,
     port = 8080;
 
 function init() {
+    //
+    // COMMAND LINE ARGS
+    //
+
     // The --nostatic option will be useful in production environments
     // where static files will be handled much more efficiently with nginx.
     commander
@@ -37,7 +43,7 @@ function init() {
             + " (default config.js)")
         .parse(process.argv);
 
-    if ( commander.port )
+    if ( commander.port !== undefined )
         port = parseInt( commander.port );
     if ( commander.nostatic )
         argstatic = false;
@@ -47,78 +53,25 @@ function init() {
         argforce = true;
     if ( commander.insecure )
         arginsecure = true;
-    if ( commander.config ) {
-        eonfigfile = commander.config;
-        createconfig = false;
+    if ( commander.config !== undefined ) {
+        if ( commander.config == "" ) {
+            console.warn("FATAL: Can't parse config file! (field empty)");
+            process.exit(1);
+        }
+        configfile = path.join(process.cwd(),commander.config);
+        configrequired = true;
     }
 
-    if ( !argtest )
-        welcomeMsg();
+    //
+    // WELCOME MESSAGE
+    //
 
-    if ( arginsecure )
-        console.warn("WARNING: Passwords will not be stored securely!");
-
-    // We require Node >=v7.5.0 due to the use of ECMAScript 6 features
-    // like const, destructuring. etc.
-    testVersion();
-
-    if ( !argforce && process.platform == "linux" && process.getuid() == 0 ) {
-        console.warn("ClubRU should NOT be run as root.");
-        console.warn("Please see documentation for proper production setup.");
-        process.exit(1);
-    }
-
-    if ( argtest ) {
-        console.log("ClubRU should work with your current NodeJS version.");
-        process.exit(0);
-    }
-
-    // Additional server settings (not command line flags) are stored in
-    // config.js. If this file does not exist, we copy the default one.
-    // NOTE: This is a small (but acceptable) race condition
-    if ( createconfig ) {
-        let configdef = path.join(__dirname, "config.default.js");
-        console.log("You don't have a config file! Copying default.");
-
-        let readS = fs.createReadStream(configdef);
-        readS.on("error", (err) => {
-            throw err;
-        });
-        let writeS = fs.createWriteStream(configfile);
-        writeS.on("error", (err) => {
-            throw err;
-        });
-        readS.pipe(writeS);
-
-        writeS.on("close", () => {
-            config = require("./config");
-            start();
-        });
-    } else {
-        start();
-    }
-
-}
-
-function start() {
-    // We hold off on loading the server module until after we check the
-    // version, so we don't error if the syntax isn't supported by the
-    // current node version.
-    servermodule = require("./lib/server.js");
-
-    let options = Object.assign({},config,{
-        nostatic: !argstatic,
-        insecure: arginsecure,
-    });
-
-    servermodule.startServer(port, options);
-}
-
-function welcomeMsg() {
     console.log("ClubRU Version "+VERSION+".");
-}
 
-function testVersion() {
+    //
+    // CHECK VERSION
+    //
+
     var ver = process.version.split(".");
 
     console.log("You are using NodeJS version: ", process.version);
@@ -131,28 +84,82 @@ function testVersion() {
         process.exit(1);
     }
 
-    if ( !argforce && (ver[0] != "v7" || parseInt(ver[1])<5) ) {
+    if ( !argforce && (ver[0] !== "v7" || parseInt(ver[1],10)<5) ) {
         console.error("Please use NodeJS v7, 7.5.0 or above!");
         process.exit(1);
     }
 
-    // TODO: Move this stuff out of testVersion
+    //
+    // LOAD CONFIGURATION
+    //
+
     console.log("Using config file: "+configfile);
-    if ( fs.existsSync(configfile) ) {
-        createconfig = false;
+
+    var userconfig;
+    if ( configrequired || fs.existsSync(configfile) ) {
         try {
-            config = require(configfile);
-            console.assert(typeof config === "object",
-                    "Config file MUST export object!");
+            userconfig = require(configfile);
         } catch (err) {
-            console.error("Error while loading config!\n", err);
+            // In the case that the file is deleted between the existsSync and
+            // and require calls, we will end up here, in addition to general
+            // errors.
+            console.warn("FATAL: Unable to load config file!");
+            console.warn("Error:\n",err);
+            process.exit(1);
+        }
+
+        if ( typeof userconfig !== "object" ) {
+            console.warn("Config file exports a "+(typeof userconfig));
+            console.warn("FATAL: Config file MUST export an object!");
             process.exit(1);
         }
     } else {
-        console.error("Your config file does NOT exist!");
-        if ( !createconfig )
-            process.exit(1);
+        console.log("Config file not found. Using all defaults.");
+        userconfig = {};
     }
+
+    // Since we have already checked the version, it's safe to use modern
+    // JS featured like Object.assign.
+    config = Object.assign({}, configdefault, userconfig, {
+        nostatic: !argstatic,
+        insecure: arginsecure,
+    });
+
+    //
+    // WARNINGS
+    //
+
+    // Warn when using --insecure
+    if ( arginsecure )
+        console.log("WARNING: Passwords will not be stored securely!");
+
+    if ( !argforce && process.platform == "linux" && process.getuid() == 0 ) {
+        console.warn("ClubRU should NOT be run as root.");
+        console.warn("Please see documentation for proper production setup.");
+        console.warn("FATAL: Refusing to run as root (use --force by bypass)");
+        process.exit(1);
+    }
+
+
+    //
+    // TEST RESULTS
+    //
+
+    if ( argtest ) {
+        console.log("ClubRU should work with your current NodeJS version.");
+        process.exit(0);
+    }
+
+    //
+    // START SERVER
+    //
+
+    // We hold off on loading the server module until after we check the
+    // version, so we don't error if the syntax isn't supported by the
+    // current node version.
+    servermodule = require("./lib/server.js");
+
+    servermodule.startServer(port, config);
 }
 
 init();
