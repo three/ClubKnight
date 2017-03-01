@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "description": "Club Pengiun for Rutgers Students",
   "author": "Eric Roberts <eric@threedot14.com>",
-  "contributors": ["Brandon Diaz <brandon.diaz.abreu@gmail.com> (http://github.com/brandon8000)",
-    ],
+  "contributors": [
+    "Brandon Diaz <brandon.diaz.abreu@gmail.com> (http://github.com/brandon8000)"
+  ],
   "main": "lib/server.js",
   "repository": {
     "type": "git",
@@ -18,11 +19,12 @@
     "body-parser": "^1.16.0",
     "commander": "^2.9.0",
     "express": "^4.14.1",
+    "sendgrid": "^4.7.1",
     "socketio": "^1.0.0",
     "sqlite3": "^3.1.8",
     "winston": "^2.3.1"
   },
   "optionalDependencies": {
-      "argon2": "^0.15.0"
+    "argon2": "^0.15.0"
   }
 }
