@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Club Pengiun for Rutgers Students",
   "author": "Eric Roberts <eric@threedot14.com>",
-  "contributors": ["Brandon Diaz <brandon.diaz.abreu@gmail.com> (http://github.com/brandon8000)",
+  "contributors": ["Brandon Diaz <brandon.diaz.abreu@gmail.com> (http://github.com/brandon8000)", "Ross Manjunath"
     ],
   "main": "lib/server.js",
   "repository": {
