@@ -1,5 +1,7 @@
 # Club RU
 
+![Travis CI Build Status](https://travis-ci.org/three/ClubRU.svg?branch=master)
+
 Club RU is a Club Penguin inspired MMO, specifically for Rutgers students.
 
 ## To Contributors
