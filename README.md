@@ -1,65 +1,64 @@
-# Club RU
+# Club Knight
 
-![Travis CI Build Status](https://travis-ci.org/three/ClubRU.svg?branch=master)
+[![Travis](https://img.shields.io/travis/three/ClubRU.svg?style=flat-square)](https://travis-ci.org/three/ClubRU)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/three/ClubRU/blob/master/LICENSE)
 
-Club RU is a Club Penguin inspired MMO, specifically for Rutgers students.
+Club Knight is a Club Penguin inspired MMO, made for Rutgers students.
+
+To be live on [clubknight.world](https://www.clubknight.world/).
+
+*Please read the entire README (it took time to make this!) before contributing
+or asking questions.*
 
 ## To Contributors
 
 We will be using the standard pull-request workflow for development. If you're
-unfamiliar with this work flow read [Understanding the Github Flow]
-(https://guides.github.com/introduction/flow/) (very short read). If you're
-unfamiliar with git, please read one of the many
-[great online git turorials](https://www.google.com/#q=git+tutorial)
-or seek help from someone in the CAVE. You may send pull requests from forked
-repositories or work off branches in the main repository. Open an issue if you
-need write access to the repo.
+unfamiliar with this work flow read [Understanding the Github
+Flow](https://guides.github.com/introduction/flow/). If you're unfamiliar with
+git, please read one of the many [great online git
+turorials](https://www.google.com/#q=git+tutorial) or seek help from someone in
+the CAVE.
 
 If you are in the "Club Rutgers" group in COGS, start by adding your name to
 `package.json` in contributors. Just follow this format
 `"Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)"`
 You can reference the
-[official npm documentation](https://docs.npmjs.com/files/package.json) if you run into any issues.
-Second, make sure you understand the basic technologies we will be using for
-this project. Knowledge of HTML and CSS or other web development knowledge will
-be helpful, but is not required. Knowledge of specific libraries or frameworks
-such as NodeJS, SocketIO or PixiJSv4 may be required for certain subgroups but
-can easily be learned as you make contributions. Knowledge of basic Javascript
-for any programming aspect is necessary to work on this project. Alternatively,
-art and music contributions are also encouraged.
-
-If you do not know javascript or would like to refresh your knowledge, I
-recommend [Mozilla's Javascript Guide]
-(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide) The
-*Introduction* (ignore Web Console stuff), *Grammar and types*, *Control flow
-and error handling*, *Loops and iteration*, *Functions* and *Details of the
-object model* should easily be enough to get you started writing Javascript.
-Javascript is an important language and you will not regret learning it.
+[official npm documentation](https://docs.npmjs.com/files/package.json) if
+you run into any issues.
 
 ## Testing
 
 ClubRU requires NodeJS v7.5.0 or above (or compatible alternative, such as
-iojs) with npm to handle libraries. Run the following to download/install
-these dependencies.
+iojs) with npm to handle libraries. The latest NodeJS is available at
+[nodejs.org](https://nodejs.org/en/) (choose the newer version).
+
+### Linux/OSX
 
     $ npm install
-
-ClubRU is run through the `clubru.js` file. By default, it will listen on
-port 8080, and the server will be available at `http://localhost:8080/`.
-
     $ node clubru.js
 
-Unfortunately, it is seemingly impossible to install a secure argon2 library
-for node on Windows. Therefore the `argon1` dependency is marked as optional
-and ClubRU can be installed without it.
+### Windows
 
     $ npm install --no-optional
-
-By default, ClubRU will still attempt to run as though the `argon2` library
-was installed. To switch to node's built-in SHA256 support, run with the
-`-i` flag.
-
     $ node clubru.js -i
+
+Because certain crypto libraries require node-gyp, which is has infamously
+[terrible Windows support](https://github.com/nodejs/node-gyp/issues/629)
+these packages are marked as optional, and slightly different commands
+need to be run.
+
+## Asset Storage
+
+Assets and binary files should not be stored on this git repository. Instead,
+they will be stored (without version control) on S3 storage. The endpoint for
+this bucket is https://cdn-clubknight-world.s3.amazonaws.com/. Since
+[CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) has been
+fully enabled (`Access-Control-Allow-Origin: *`) you should be able to make
+requests (ajax, etc.) to this server, even from your local dev environment.
+When accessing assets from S3 always specify https (ex:
+`https://cdn-clubknight-world.s3.amazonaws.com/clubru.png`, NOT
+`http://cdn-clubknight-world.s3.amazonaws.com/`). Open an issue or contact
+@three if you need to upload assets.
 
 # License and Ownership
 
