@@ -1,18 +1,24 @@
+body {
+    background: rgb(255,189,181);
+}
+
 h1 {
     text-align: center;
 }
 
 #game {
     width: 1024px;
-    height: 512px;
+    height: 576px;
 
     margin: 0 auto;
     position: relative;
+
+    border: solid #000 3px;
 }
 
 #pixi-container {
     width: 1024px;
-    height: 512px;
+    height: 576px;
 
     position: absolute;
     top: 0px;
@@ -21,21 +27,25 @@ h1 {
 
 #game-overlay {
     width: 1024px;
-    height: 512px;
+    height: 576px;
     position: absolute;
     top: 0px;
     left: 0px;
-    
-    background: url(assets/overlay.svg);
-    background-size: 1024px 512px;
 }
 
 #game-overlay #chat {
     position: absolute;
-    top: 474px;
+    top: 505px;
     left: 300px;
     width: 421px;
 
     font-size: 19px;
     font-family: 'Risque', cursive;
+}
+
+#game-overlay #progressbar {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
 }

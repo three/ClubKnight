@@ -1,0 +1,25 @@
+#badSupport {
+    position: fixed;
+    z-index: 100;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    margin: 10px 0px;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+#badSupport>a {
+    display: block;
+    background: #0000FF;
+    margin: 0px auto;
+    width: 200px;
+    color: #FFFFFF;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
