@@ -31,6 +31,11 @@ h1 {
     position: absolute;
     top: 0px;
     left: 0px;
+
+    pointer-events: none;
+}
+#game-overlay>* {
+    pointer-events: all;
 }
 
 #game-overlay #chat {

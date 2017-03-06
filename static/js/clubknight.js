@@ -59,9 +59,6 @@ function setup() {
     renderer.render(stage);
 
     $("#progressbar").classList.add("hidden");
-
-    // TODO: Capture mouse events form PIXI without losing overlay
-    $("#game-overlay").classList.add("hidden");
 }
 
 return {
