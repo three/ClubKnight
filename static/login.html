@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Club Knight - Login</title>
+
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/login.css" />
+
+        <script type="text/javascript" src="/js/global.js"></script>
+        <script type="text/javascript" src="/js/login.js"></script>
+    </head>
+
+    <body>
+        <h1>Login</h1>
+
+        <form method="POST" action="/auth/login" class="dynamic-form">
+            <label>
+                Rutgers NetID
+                <input type="text" name="netid" />
+            </label><br />
+            <label>
+                Password
+                <input type="password" name="pass" />
+            </label><br />
+            <button type="submit" class="dynamic-submit">Login</button><br />
+            <pre class="dynamic-response"></pre>
+        </form>
+    </body>
+</html>

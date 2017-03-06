@@ -51,8 +51,78 @@ function getCookie(name) {
     return null;
 }
 
+function initDynamicForms() {
+    var forms = document.getElementsByClassName("dynamic-form");
+    for (var i=0;i<forms.length;i++)
+        initDynamicForm(forms[i]);
+}
+
+// TODO: This could be cleaned up (low priority)
+function initDynamicForm(form) {
+    var submitters = form.getElementsByClassName("dynamic-submit");
+    var responseFields = form.getElementsByClassName("dynamic-response");
+    var submitter;
+    for (var i=0;i<submitters.length;i++) {
+        submitter = submitters[i];
+        submitter.addEventListener("click", (function (evt) {
+            var sbmter = this;
+
+            evt.preventDefault();
+            this.disabled = true;
+
+            var inputs = form.getElementsByTagName("input");
+            var params = "";
+            for (var i=0;i<inputs.length;i++) {
+                params = params
+                    + encodeURIComponent(inputs[i].name)
+                    + "="
+                    + encodeURIComponent(inputs[i].value)
+                    + "&";
+            }
+            params += "xhr=1";
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", form.action, true);
+            xhr.setRequestHeader("Content-type",
+                "application/x-www-form-urlencoded");
+            xhr.onload = function (revt) {
+                console.log("load", revt);
+                sbmter.disabled = false;
+                for (var i=0;i<inputs.length;i++) {
+                    inputs[i].value = "";
+                }
+
+                if (!xhr.responseText)
+                    return;
+                var message = JSON.parse(xhr.responseText).message;
+                var resText;
+                for (var i=0;i<responseFields.length;i++) {
+                    responseFields[i].innerHTML = "";
+                    resText = document.createTextNode(message);
+                    responseFields[i].appendChild(resText);
+                }
+            };
+            xhr.onerror = function (revt) {
+                console.log("error", revt);
+                sbmter.disabled = false;
+
+                for (var i=0;i<responseFields.length;i++) {
+                    responseFields[i].innerHTML = "";
+                    resText = document.createTextNode(
+                        "Client Error! (check your internet?)"
+                    );
+                    responseFields[i].appendChild(resText);
+                }
+            };
+            xhr.send(params);
+        }).bind(submitter));
+    }
+}
+
 try {
     eval("()=>{}");
 } catch (err) {
     badSupport();
 }
+
+window.addEventListener("load", initDynamicForms);

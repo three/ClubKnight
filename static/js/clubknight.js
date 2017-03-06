@@ -43,7 +43,7 @@ function setup() {
     button1.interactive = true;
     button1.buttonMode = true;
     button1.on("pointerdown", (e)=>{
-        document.location.href = "/auth/login";
+        document.location.href = "/register.html";
     });
     stage.addChild(button1);
 
@@ -52,7 +52,7 @@ function setup() {
     button2.interactive = true;
     button2.buttonMode = true;
     button2.on("pointerdown", (e)=>{
-        document.location.href = "/auth/register";
+        document.location.href = "/login.html";
     });
     stage.addChild(button2)
 

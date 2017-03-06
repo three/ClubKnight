@@ -3,7 +3,11 @@
     <head>
         <title>Validate Your Account</title>
 
-        <script type="text/javascript" src="/validate.js"></script>
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/validate.css" />
+
+        <script type="text/javascript" src="/js/global.js"></script>
+        <script type="text/javascript" src="/js/validate.js"></script>
     </head>
 
     <body>
@@ -17,7 +21,7 @@
         <p>In either case, please enter your validation token and
         desired password below.</p>
 
-        <form action="validate.html" method="POST">
+        <form action="/auth/validate" method="POST" class="dynamic-form">
             <label>
                 Validation Token:
                 <input type="text" name="token" />
@@ -26,12 +30,14 @@
                 Desired Password:
                 <input type="text" name="pass" />
             </label><br/>
-            <button type="submit">Validate!</button>
+            <button type="submit" class="dynamic-submit">Validate!</button>
             <p><em>Passwords must be 1 or more ASCII (non-control)
             characters.</em> Password sized may not exceed 1000
             characters. Passwords are hashed with the Argon2 algorithm
             before storage. By reaching this page you have already
             agreed to the information listed on the registration page.</p>
+
+            <pre class="dynamic-response"></pre>
         </form>
     </body>
 </html>
