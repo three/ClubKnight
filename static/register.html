@@ -3,7 +3,11 @@
     <head>
         <title>Register for Club RU</title>
 
-        <script type="text/javascript" src="/register.js"></script>
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/register.css" />
+
+        <script type="text/javascript" src="/js/global.js"></script>
+        <script type="text/javascript" src="/js/register.js"></script>
     </head>
 
     <body>
@@ -86,7 +90,7 @@
 
         <h2>Registration</h2>
 
-        <form action="register.html" method="POST">
+        <form action="/auth/register" method="POST" class="dynamic-form">
             <label>
                 <input type="checkbox" name="agree" />
                 I have completely read and agree to ALL of the above terms
@@ -96,9 +100,11 @@
                 <input type="text" name="netid" />
             </label>
             
-            <button type="submit">Register</button><br />
+            <button type="submit" class="dynamic-submit">Register</button><br />
             <em>Your account will NOT be valid until you confirm via your
-                rutgers email address!<em>
+                rutgers email address!</em>
+
+            <pre class="dynamic-response"></pre>
         </form>
     </body>
 </html>

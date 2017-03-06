@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Club RU</title>
+        <title>Club Knight</title>
+
+        <link rel="stylesheet" href="css/clubknight.css" />
+        <link rel="stylesheet" href="css/global.css" />
+        <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet">
+
+        <!-- TODO: Before we deploy anything, change these to the minified version -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.3.4/pixi.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+
+        <script type="text/javascript" src="/js/global.js"></script>
+        <script type="text/javascript" src="/js/lobby.js"></script>
+        <script type="text/javascript" src="/js/clubknight.js"></script>
     </head>
+
     <body>
-        <p>
-            <em>TODO:</em>
-            Once the authentication system system is complete this page
-            should contains links to it.
-        </p>
-        <p>
-            In the meantime, just <a href="play.html">Play the Game</a>.
-        </p>
+        <h1>Club Knight</h1>
+        <div id="game">
+            <div id="pixi-container">
+            </div>
+            <div id="game-overlay">
+                <progress id="progressbar"></progress>
+            </div>
+        </div>
     </body>
-</html>
+</head>
