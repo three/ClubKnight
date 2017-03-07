@@ -10,6 +10,7 @@ var VERSION = "0.0.1";
 var commander = require("commander");
 var fs = require("fs");
 var path = require("path");
+var eslint;
 var servermodule;
 
 var configdefault = require("./config.default.js");
@@ -18,6 +19,8 @@ var config;
 var argtest = false,
     argforce = false,
     arginsecure = false,
+    arglint = false,
+    argexit = false,
     configrequired = false,
     configfile = path.join(__dirname, "config.js"),
     serveonly = "all";
@@ -32,10 +35,12 @@ function init() {
     // where static files will be handled much more efficiently with nginx.
     commander
         .version(VERSION)
-        .usage("./clubru.js [-cfit] [-o auth|lobby|static|all] [-p port]")
+        .usage("./clubru.js [-cefilt] [-o auth|lobby|static|all] [-p port]")
         .option("-o, --serveonly [module]", "only serve one module (auth, lobby"
            +", static or all)")
         .option("-t, --test", "test for correct nodejs version and exit")
+        .option("-l, --lint", "lint javascript with ESLint and exit")
+        .option("-e, --exit", "immediately exit after starting server")
         .option("-p, --port <n>", "port to serve (default 8080)")
         .option("-f, --force", "always attempt to run (possibly insecure)")
         .option("-i, --insecure", "use alternatives to compiled pkgs"
@@ -52,6 +57,10 @@ function init() {
         argforce = true;
     if ( commander.insecure )
         arginsecure = true;
+    if ( commander.lint )
+        arglint = true;
+    if ( commander.exit )
+        argexit = true;
     if ( commander.serveonly !== undefined ) {
         if ( !(/^((auth)|(lobby)|(static)|(all))$/)
             .test(commander.serveonly) ) {
@@ -155,13 +164,20 @@ function init() {
         console.log("Only serving single module: " + serveonly);
 
     //
-    // TEST RESULTS
+    // VERSION TEST AND LINTING
     //
 
-    if ( argtest ) {
+    if ( argtest )
         console.log("ClubRU should work with your current NodeJS version.");
-        process.exit(0);
+
+    if ( arglint ) {
+        console.log("Running: eslint --ext .js / (output below)");
+        eslint = require("eslint/lib/cli");
+        eslint.execute("--ext .js /.");
     }
+
+    if ( argtest || arglint )
+        process.exit(0);
 
     //
     // START SERVER
@@ -172,7 +188,12 @@ function init() {
     // current node version.
     servermodule = require("./lib/server.js");
 
-    servermodule.startServer(port, config);
+    servermodule.startServer(port, config, function () {
+        if ( argexit )
+            servermodule.stopServer();
+        console.log("Server initialized successfully. Exiting.");
+        process.exit(0);
+    });
 }
 
 init();
