@@ -3,14 +3,16 @@
  *
  * Client-Side Rendering
  */
+/* eslint-env browser */
+/* global PIXI */
 "use strict";
 
 var play = (function () {
 
 const ASSET_SERVER = "https://cdn-clubknight-world.s3.amazonaws.com";
 
-var $ =  (q)=>document.querySelector(q),
-    $$ = (q)=>document.querySelectorAll(q);
+var $  = (q)=>document.querySelector(q);
+//  $$ = (q)=>document.querySelectorAll(q);
 
 var renderer = null;
 var stage = null;
@@ -42,7 +44,7 @@ function setup() {
     button1.hitArea = new PIXI.Rectangle(10,300,250,200);
     button1.interactive = true;
     button1.buttonMode = true;
-    button1.on("pointerdown", (e)=>{
+    button1.on("pointerdown", ()=>{
         document.location.href = "/register.html";
     });
     stage.addChild(button1);
@@ -51,7 +53,7 @@ function setup() {
     button2.hitArea = new PIXI.Rectangle(150,400,350,176);
     button2.interactive = true;
     button2.buttonMode = true;
-    button2.on("pointerdown", (e)=>{
+    button2.on("pointerdown", ()=>{
         document.location.href = "/login.html";
     });
     stage.addChild(button2)
@@ -64,7 +66,6 @@ function setup() {
 return {
     init,
 
-    _socket: ()=>socket,
     _renderer: ()=>renderer,
     _stage: ()=>stage,
 };

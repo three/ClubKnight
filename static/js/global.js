@@ -4,6 +4,7 @@
  * Global functions, and check browser support. Avoid modern javascript
  * features.
  */
+/* eslint-disable */
 
 var badSupportDialog;
 
@@ -106,6 +107,7 @@ function initDynamicForm(form) {
                 console.log("error", revt);
                 sbmter.disabled = false;
 
+                var resText;
                 for (var i=0;i<responseFields.length;i++) {
                     responseFields[i].innerHTML = "";
                     resText = document.createTextNode(

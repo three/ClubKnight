@@ -7,6 +7,7 @@
  *  - Client/Server communication
  *  - Player Prediction
  */
+/* eslint-env browser */
 
 var lobby = (function () {
 
@@ -18,3 +19,5 @@ return {
 };
 
 })();
+
+void(lobby);
