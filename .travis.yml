@@ -1,7 +1,14 @@
 language: node_js
 
+addons:
+    apt:
+        packages:
+            - gcc-6
+              g++-6
+
 install:
     - npm install
 script:
     - node clubru.js -tl
+    - node clubru.js -ei
     - node clubru.js -e
