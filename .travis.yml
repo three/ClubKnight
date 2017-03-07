@@ -8,6 +8,10 @@ addons:
             - gcc-6
               g++-6
 
+env:
+    - CC=gcc
+    - CXX=g++
+
 install:
     - npm install
 script:
