@@ -3,4 +3,5 @@ language: node_js
 install:
     - npm install
 script:
-    - node clubru.js -t
+    - node clubru.js -tl
+    - node clubru.js -e
