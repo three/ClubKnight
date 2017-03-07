@@ -9,8 +9,7 @@ addons:
               g++-6
 
 env:
-    - CC=gcc
-    - CXX=g++
+    - CC="gcc" CXX="g++"
 
 install:
     - npm install
