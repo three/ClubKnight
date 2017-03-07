@@ -15,12 +15,12 @@ var servermodule;
 var configdefault = require("./config.default.js");
 var config;
 
-var argstatic = true,
-    argtest = false,
+var argtest = false,
     argforce = false,
     arginsecure = false,
-    configfile = path.join(__dirname, "config.js"),
     configrequired = false,
+    configfile = path.join(__dirname, "config.js"),
+    serveonly = "all";
     port = 8080;
 
 function init() {
@@ -32,8 +32,9 @@ function init() {
     // where static files will be handled much more efficiently with nginx.
     commander
         .version(VERSION)
-        .usage("./clubru.js [-bcfhntv] [-p port]")
-        .option("-n, --nostatic", "don't serve static files")
+        .usage("./clubru.js [-cfit] [-o auth|lobby|static|all] [-p port]")
+        .option("-o, --serveonly [module]", "only serve one module (auth, lobby"
+           +", static or all)")
         .option("-t, --test", "test for correct nodejs version and exit")
         .option("-p, --port <n>", "port to serve (default 8080)")
         .option("-f, --force", "always attempt to run (possibly insecure)")
@@ -45,14 +46,20 @@ function init() {
 
     if ( commander.port !== undefined )
         port = parseInt( commander.port );
-    if ( commander.nostatic )
-        argstatic = false;
     if ( commander.test )
         argtest = true;
     if ( commander.force )
         argforce = true;
     if ( commander.insecure )
         arginsecure = true;
+    if ( commander.serveonly !== undefined ) {
+        if ( !(/^((auth)|(lobby)|(static)|(all))$/)
+            .test(commander.serveonly) ) {
+            console.warn("FATAL: Invalid module passed to --serveonly");
+            process.exit(1);
+        }
+        serveonly = commander.serveonly;
+    }
     if ( commander.config !== undefined ) {
         if ( commander.config == "" ) {
             console.warn("FATAL: Can't parse config file! (field empty)");
@@ -121,8 +128,10 @@ function init() {
     // Since we have already checked the version, it's safe to use modern
     // JS featured like Object.assign.
     config = Object.assign({}, configdefault, userconfig, {
-        nostatic: !argstatic,
         insecure: arginsecure,
+        serveauth: (serveonly==="auth"||serveonly==="all"),
+        servelobby: (serveonly==="lobby"||serveonly==="all"),
+        servestatic: (serveonly==="static"||serveonly==="all"),
     });
 
     //
@@ -133,6 +142,7 @@ function init() {
     if ( arginsecure )
         console.log("WARNING: Passwords will not be stored securely!");
 
+    // Don't encourage people to run as root
     if ( !argforce && process.platform == "linux" && process.getuid() == 0 ) {
         console.warn("ClubRU should NOT be run as root.");
         console.warn("Please see documentation for proper production setup.");
@@ -140,6 +150,9 @@ function init() {
         process.exit(1);
     }
 
+    // Make user aware (and log aware) if their not serving everything
+    if ( serveonly !== "all" )
+        console.log("Only serving single module: " + serveonly);
 
     //
     // TEST RESULTS
