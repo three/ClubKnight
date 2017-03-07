@@ -3,6 +3,7 @@
  *
  * Client-Side Rendering
  */
+/* eslint-env browser */
 "use strict";
 
 var play = (function () {

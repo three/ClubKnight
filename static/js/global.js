@@ -4,6 +4,7 @@
  * Global functions, and check browser support. Avoid modern javascript
  * features.
  */
+/* eslint-env browser */
 
 var badSupportDialog;
 

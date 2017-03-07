@@ -171,9 +171,40 @@ function init() {
         console.log("ClubRU should work with your current NodeJS version.");
 
     if ( arglint ) {
-        console.log("Running: eslint --ext .js / (output below)");
-        eslint = require("eslint/lib/cli");
-        eslint.execute("--ext .js /.");
+        console.log("Running: eslint (output below)");
+        eslint = require("eslint");
+        (function (cli) {
+            var report = cli.executeOnFiles(["lib/","static/js/"]);
+            var results = report.results;
+            var result, message;
+            for (var i=0;i<results.length;i++) {
+                result = results[i];
+                console.log(" FILE: "+result.filePath);
+                for (var j=0;j<result.messages.length;j++) {
+                    message = result.messages[j];
+                    console.log("  ["+message.message+"@"+message.line
+                        +":"+message.column+"]");
+                    console.log("  RULE: "+message.ruleId);
+                    console.log("  SEVERITY: "+message.severity);
+                    console.log("  MESSAGE: "+message.message);
+                    console.log("  LINE: "+message.line);
+                    console.log("  COLUMN: "+message.column);
+                    console.log("  NODETYPE: "+message.nodeType);
+                }
+            }
+            console.log(" eslint warnings: "+report.warningCount);
+            console.log(" eslint errors: "+report.errorCount);
+            console.log(" (Note: Use the eslint command for cleaner output)");
+            if ( report.errorCount > 0 ) {
+                console.warn("ERROR: ESLint found errors");
+                process.exit(1);
+            } else if ( report.warningCount > 0 ) {
+                console.log("ESLint found warnings, but no errors. This passes"
+                    +" but consider yourself on thin ice!");
+            }
+        })(new eslint.CLIEngine({
+            useEslintrc: true,
+        }));
     }
 
     if ( argtest || arglint )
