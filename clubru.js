@@ -220,10 +220,11 @@ function init() {
     servermodule = require("./lib/server.js");
 
     servermodule.startServer(port, config, function () {
-        if ( argexit )
+        if ( argexit ) {
             servermodule.stopServer();
-        console.log("Server initialized successfully. Exiting.");
-        process.exit(0);
+            console.log("Server initialized successfully. Exiting.");
+            process.exit(0);
+        }
     });
 }
 
