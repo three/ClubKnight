@@ -100,7 +100,7 @@ function init() {
         process.exit(1);
     }
 
-    if ( !argforce && (ver[0] !== "v7" || parseInt(ver[1],10)<5) ) {
+    if ( !argforce && (ver[0] !== "v7" || parseInt(ver[1],10)<8) ) {
         console.error("Please use NodeJS v7, 7.5.0 or above!");
         process.exit(1);
     }

@@ -28,7 +28,7 @@ you run into any issues.
 
 ## Testing
 
-ClubRU requires NodeJS v7.5.0 or above (or compatible alternative, such as
+ClubRU requires NodeJS v7.8.0 or above (or compatible alternative, such as
 iojs) with npm to handle libraries. The latest NodeJS is available at
 [nodejs.org](https://nodejs.org/en/) (choose the newer version).
 
