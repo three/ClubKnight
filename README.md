@@ -1,7 +1,7 @@
 # Club Knight
 
-[![Travis](https://img.shields.io/travis/three/ClubRU/master.svg?style=flat-square)](https://travis-ci.org/three/ClubRU)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://raw.githubusercontent.com/three/ClubRU/master/LICENSE)
+[![Travis](https://img.shields.io/travis/three/ClubKnight/master.svg?style=flat-square)](https://travis-ci.org/three/ClubKnight)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://raw.githubusercontent.com/three/ClubKnight/master/LICENSE)
 
 Club Knight is a Club Penguin inspired MMO, made for Rutgers students.
 
